@@ -39,6 +39,17 @@ namespace dotnet_api.Controllers
             return Ok(await _characterService.AddCharacter(newCharacter));
         }
 
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> Delete(int id)
+        {
+            var response = await _characterService.DeleteCharacter(id);
+            if (response.Data == null)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
+        }
+
         [HttpPut]
         public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> UpdateCharacter(UpdateCharacterDto updatedCharacter)
         {
